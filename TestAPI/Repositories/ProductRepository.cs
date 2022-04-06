@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using TestAPI.Context;
 using TestAPI.Models;
 
@@ -18,12 +19,14 @@ namespace TestAPI.Repositories
         }
         public Product CreateProduct(Product product)
         {
-            throw new System.NotImplementedException();
+            _context.Products.Add(product);
+            _context.SaveChanges();
+            return product;
         }
 
         public List<Product> GetProducts()
         {
-            throw new System.NotImplementedException();
+            return _context.Products.ToList();
         }
     }
 }

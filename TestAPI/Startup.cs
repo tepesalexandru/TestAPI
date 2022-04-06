@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -12,6 +13,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TestAPI.Business;
+using TestAPI.Context;
 using TestAPI.Repositories;
 
 namespace TestAPI
@@ -34,6 +36,14 @@ namespace TestAPI
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "TestAPI", Version = "v1" });
             });
+
+            services.AddDbContext<DatabaseContext>(o => o.UseSqlServer(Configuration.GetConnectionString("Database"),
+                                                       sqlServerOptions =>
+                                                       {
+                                                           sqlServerOptions.CommandTimeout(60);
+                                                           sqlServerOptions.EnableRetryOnFailure();
+                                                       }));
+
             services.AddScoped<IWeatherForecastManager, WeatherForecastManager>();
             services.AddScoped<IWeatherForecastRepository, WeatherForecastRepository>();
         }

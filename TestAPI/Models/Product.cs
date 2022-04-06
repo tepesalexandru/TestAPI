@@ -10,6 +10,6 @@ namespace TestAPI.Models
         public string Description { get; set; }
         public DateTime CreatedOn { get; set; }
 
-        public List<Rating> Ratings { get; set; } = new List<Rating>();
+        public ICollection<Rating> Ratings { get; set; } = new List<Rating>();
     }
 }

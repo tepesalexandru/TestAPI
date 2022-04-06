@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Linq;
 using TestAPI.Context;
 using TestAPI.Models;
@@ -9,6 +10,7 @@ namespace TestAPI.Repositories
     {
         List<Product> GetProducts();
         Product CreateProduct(Product product);
+        Rating CreateRating(Rating rating);
     }
     public class ProductRepository : IProductRepository
     {
@@ -24,9 +26,16 @@ namespace TestAPI.Repositories
             return product;
         }
 
+        public Rating CreateRating(Rating rating)
+        {
+            _context.Ratings.Add(rating);
+            _context.SaveChanges();
+            return rating;
+        }
+
         public List<Product> GetProducts()
         {
-            return _context.Products.ToList();
+            return _context.Products.Include(p => p.Ratings).ToList();
         }
     }
 }

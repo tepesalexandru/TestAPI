@@ -11,5 +11,6 @@ namespace TestAPI.Context
         }
 
         public DbSet<Product> Products { get; set; }
+        public DbSet<Rating> Ratings { get; set; }
     }
 }

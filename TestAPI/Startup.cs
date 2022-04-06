@@ -46,6 +46,8 @@ namespace TestAPI
 
             services.AddScoped<IWeatherForecastManager, WeatherForecastManager>();
             services.AddScoped<IWeatherForecastRepository, WeatherForecastRepository>();
+            services.AddScoped<IProductManager, ProductManager>();
+            services.AddScoped<IProductRepository, ProductRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

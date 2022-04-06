@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using TestAPI.Models;
 
 namespace TestAPI.Context
 {
@@ -8,5 +9,7 @@ namespace TestAPI.Context
         {
 
         }
+
+        public DbSet<Product> Products { get; set; }
     }
 }
